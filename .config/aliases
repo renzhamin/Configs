@@ -1,0 +1,47 @@
+alias ls='ls -h --color'
+alias ll='ls -alh'
+alias la='ls -A'
+alias lh='ls -ad .?*'
+alias ramclean='sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"'
+alias dt="date +'%a %b%d %Y'"
+alias vman="vi -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' -c 'map <SPACE> <C-D>' -c 'map b <C-U>' -c 'nmap K :Man <C-R>=expand(\"<cword>\")<CR><CR>' -"
+
+# configs #
+alias vconf='nvim ~/.config/nvim/init.vim'
+alias zconf='nvim ~/.config/zsh/.zshrc'
+alias configs='git --git-dir=$HOME/dotfiles --work-tree=$HOME'
+# - #
+
+alias Wine="flatpak run --command=wine org.winehq.flatpak-wine"
+alias Winetricks="flatpak run --command=winetricks org.winehq.flatpak-wine"
+alias Winecfg="flatpak run --command=winecfg org.winehq.flatpak-wine"
+alias Wineconsole="flatpak run --command=wineconsole org.winehq.flatpak-wine"
+
+alias wine="WINEPREFIX=\$(pwd) flatpak run --command=wine org.winehq.flatpak-wine"
+alias winetricks="WINEPREFIX=\$(pwd) flatpak run --command=winetricks org.winehq.flatpak-wine"
+alias winecfg="WINEPREFIX=\$(pwd) flatpak run --command=winecfg org.winehq.flatpak-wine"
+alias wineconsole="WINEPREFIX=\$(pwd) flatpak run --command=wineconsole org.winehq.flatpak-wine"
+
+
+alias key="xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf \"%-3s %s\n\", \$5, \$8 }'"
+
+
+# pdf #
+alias cpdf="gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=out.pdf -dBATCH"
+alias opdf="gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDetectDuplicateImages -dCompressFonts=true -r150 -o output.pdf"
+alias spdf="gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=1 -sOUTPUTFILE=output.pdf"
+# - #
+
+
+# z.lua #
+alias zh="z -I -t ."
+
+
+alias ydl="youtube-dl -f 22"
+
+
+# check site speed
+alias chsp="curl -s -w 'Testing Website Response Time for :%{url_effective}\n\nLookup Time:\t\t%{time_namelookup}\nConnect Time:\t\t%{time_connect}\nPre-transfer Time:\t%{time_pretransfer}\nStart-transfer Time:\t%{time_starttransfer}\n\nTotal Time:\t\t%{time_total}\n' -o /dev/null"
+
+alias locate="plocate -d ~/.local/share/plocate.db"
+alias updateldb="updatedb -o ~/.local/plocate.db -U ${HOME} -l 0"

@@ -1,0 +1,7 @@
+*npm*
+node*
+go
+.cache
+.git
+dev
+*fs

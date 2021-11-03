@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $1 -eq 1 ];then
+    [ -d ~/.sublime ] && ( [ -d ~/.mozilla ] && rm -r ~/.mozilla;mv ~/.sublime ~/.mozilla )
+    [ -d ~/.mozilla ] || ( mkdir ~/.mozilla;cp -r ~/Configs/Local\ App\ Settings/ffstrings/* ~/.mozilla/ )
+else
+    [ -d ~/.mozilla ] && mv ~/.mozilla ~/.sublime
+fi
+

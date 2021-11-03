@@ -1,0 +1,24 @@
+source ~/.config/aliases
+source ~/.config/aliases_arch
+
+PLUGIN_DIR="$HOME/.local/share/zsh/plugins"
+
+plugins=(
+    "zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    "zsh-autosuggestions/zsh-autosuggestions.zsh"
+    "powerlevel10k/powerlevel10k.zsh-theme"
+    "zsh-autopair/autopair.zsh"
+    "zsh-toggle-command-prefix/toggle-command-prefix.zsh"
+)
+
+for i in ${plugins[@]};do
+    source "${PLUGIN_DIR}/${i}"
+done
+
+for file in ${ZDOTDIR}/autoload/*; do
+    source "${file}"
+done
+
+source "${ZDOTDIR}/highlighters"
+
+eval "$(lua ${PLUGIN_DIR}/z.lua/z.lua --init zsh enhanced)"

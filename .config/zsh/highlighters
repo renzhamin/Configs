@@ -1,0 +1,9 @@
+ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=#005fd7,underline
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=#005fd7,underline
+ZSH_HIGHLIGHT_STYLES[arg0]=fg=#005fd7
+ZSH_HIGHLIGHT_STYLES[path]=fg=#c8db18
+ZSH_HIGHLIGHT_STYLES[default]=fg=#03a9fc
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=#a87932
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=#a87932
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=#a84a32
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=#a84a32
