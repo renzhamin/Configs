@@ -39,6 +39,11 @@ mousebinds.tasklist_buttons = my_table.join(
             c:raise()
         end
     end),
+
+    awful.button({}, 2, function(c)
+        c:kill()
+    end),
+
     awful.button({ }, 3, function ()
         local instance = nil
 
@@ -62,7 +67,7 @@ mousebinds.clientbuttons = my_table.join(
     awful.button({ modkey }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
         awful.mouse.client.move(c)
-        awful.client.floating.toggle(c)
+        --awful.client.floating.toggle(c)
     end),
     awful.button({ modkey }, 3, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})

@@ -47,6 +47,8 @@ local keys          = require("keymaps")
 local mousebinds    = require("mousebinds")
 local globalkeys    = keys.globalkeys
 
+local smax          = require("singleMax")
+
 
 
 -- {{{ Error handling
@@ -127,9 +129,10 @@ awful.layout.suit.tile.left.mirror = true
 
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.max.fullscreen,
     awful.layout.suit.max,
-    --awful.layout.suit.floating,
+    smax,
+    awful.layout.suit.floating,
+    --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
     --awful.layout.suit.tile.top,
@@ -217,6 +220,8 @@ require("signals")
 
 -- Autostart applications
 awful.spawn.with_shell("~/.config/spectrwm/Scripts/autostart.sh")
---awful.spawn.with_shell("picom -b --config  $HOME/.config/awesome/picom.conf")
-screen[1].tags[3].barvisible = false
---screen[1].tags[3].layout     = awful.layout.suit.max
+local tag3 = screen[1].tags[3]
+
+tag3.barvisible = false
+tag3.layout     = smax
+tag3.gap        = 0
