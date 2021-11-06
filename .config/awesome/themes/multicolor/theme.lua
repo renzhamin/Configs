@@ -1,29 +1,23 @@
---[[
-
-     Multicolor Awesome WM theme 2.0
-     github.com/lcpz
-
---]]
-
 local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
 
-local os = os
-local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
+local os,string = os,string
+local my_table = gears.table 
 
 local theme                                     = {}
 theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
 theme.wallpaper                                 = theme.confdir .. "/wallpaper.jpg"
 --theme.wallpaper                                 = "/usr/share/backgrounds/arcolinux/arco-wallpaper.jpg"
 theme.font                                      = "Noto Sans Regular 11"
-theme.taglist_font                              = "Noto Sans Regular 13"
-theme.menu_bg_normal                            = "#000000"
-theme.menu_bg_focus                             = "#000000"
-theme.bg_normal                                 = "#000000"
-theme.bg_focus                                  = "#000000"
+theme.hotkeys_font                              = "FreeSans 14"
+theme.hotkeys_description_font                  = "Cantarell 16"
+--theme.bg_normal                                 = "#141F22"
+theme.bg_normal                                 = "#001520"
+--theme.bg_normal                                 = "#000000"
+theme.bg_focus                                  = "#00121B"
 theme.bg_urgent                                 = "#000000"
 theme.fg_normal                                 = "#aaaaaa"
 theme.fg_focus                                  = "#ff8c00"
@@ -33,6 +27,23 @@ theme.border_width                              = dpi(2)
 theme.border_normal                             = "#1c2022"
 theme.border_focus                              = "#5e81ac"
 theme.border_marked                             = "#3ca4d8"
+
+--- Taglist
+theme.taglist_font                              = "Noto Sans Regular 13"
+theme.taglist_squares_sel                       = theme.confdir .. "/icons/square_a.png"
+theme.taglist_squares_unsel                     = theme.confdir .. "/icons/square_b.png"
+----------------------------------------------------------------------------------------
+
+--- Tasklist ----
+theme.tasklist_bg_normal                        = theme.bg_normal
+theme.tasklist_bg_focus                         = theme.bg_focus
+theme.tasklist_plain_task_name                  = false
+theme.tasklist_disable_icon                     = false
+----------------------------------------------------------------------------------------
+
+--- Right Click Menu
+theme.menu_bg_normal                            = "#000000"
+theme.menu_bg_focus                             = "#000000"
 theme.menu_border_width                         = 0
 theme.menu_height                               = dpi(25)
 theme.menu_width                                = dpi(260)
@@ -41,27 +52,30 @@ theme.menu_fg_normal                            = "#aaaaaa"
 theme.menu_fg_focus                             = "#ff8c00"
 theme.menu_bg_normal                            = "#050505dd"
 theme.menu_bg_focus                             = "#050505dd"
-theme.widget_temp                               = theme.confdir .. "/icons/temp.png"
-theme.widget_uptime                             = theme.confdir .. "/icons/ac.png"
+----------------------------------------------------------------------------------------
+
+--theme.widget_temp                               = theme.confdir .. "/icons/temp.png"
+--theme.widget_uptime                             = theme.confdir .. "/icons/ac.png"
+--theme.widget_fs                                 = theme.confdir .. "/icons/fs.png"
+--theme.widget_weather                            = theme.confdir .. "/icons/dish.png"
+--theme.widget_mail                               = theme.confdir .. "/icons/mail.png"
+--theme.widget_music                              = theme.confdir .. "/icons/note.png"
+--theme.widget_music_on                           = theme.confdir .. "/icons/note.png"
+--theme.widget_music_pause                        = theme.confdir .. "/icons/pause.png"
+--theme.widget_music_stop                         = theme.confdir .. "/icons/stop.png"
+
+--- Widget Icons ---
 theme.widget_cpu                                = theme.confdir .. "/icons/cpu.png"
-theme.widget_weather                            = theme.confdir .. "/icons/dish.png"
-theme.widget_fs                                 = theme.confdir .. "/icons/fs.png"
 theme.widget_mem                                = theme.confdir .. "/icons/mem.png"
 theme.widget_netdown                            = theme.confdir .. "/icons/net_down.png"
 theme.widget_netup                              = theme.confdir .. "/icons/net_up.png"
-theme.widget_mail                               = theme.confdir .. "/icons/mail.png"
 theme.widget_batt                               = theme.confdir .. "/icons/bat.png"
 theme.widget_clock                              = theme.confdir .. "/icons/clock.png"
 theme.widget_vol                                = theme.confdir .. "/icons/spkr.png"
-theme.widget_music                              = theme.confdir .. "/icons/note.png"
-theme.widget_music_on                           = theme.confdir .. "/icons/note.png"
-theme.widget_music_pause                        = theme.confdir .. "/icons/pause.png"
-theme.widget_music_stop                         = theme.confdir .. "/icons/stop.png"
-theme.taglist_squares_sel                       = theme.confdir .. "/icons/square_a.png"
-theme.taglist_squares_unsel                     = theme.confdir .. "/icons/square_b.png"
-theme.tasklist_plain_task_name                  = true
-theme.tasklist_disable_icon                     = false
-theme.useless_gap                               = 0
+----------------------------------------------------------------------------------------
+
+---- Layout ---
+theme.useless_gap                               = 2
 theme.layout_tile                               = theme.confdir .. "/icons/tile.png"
 theme.layout_tilegaps                           = theme.confdir .. "/icons/tilegaps.png"
 theme.layout_tileleft                           = theme.confdir .. "/icons/tileleft.png"
@@ -75,6 +89,9 @@ theme.layout_max                                = theme.confdir .. "/icons/max.p
 theme.layout_fullscreen                         = theme.confdir .. "/icons/fullscreen.png"
 theme.layout_magnifier                          = theme.confdir .. "/icons/magnifier.png"
 theme.layout_floating                           = theme.confdir .. "/icons/floating.png"
+----------------------------------------------------------------------------------------
+
+--- TitleBar Icons ----
 theme.titlebar_close_button_normal              = theme.confdir .. "/icons/titlebar/close_normal.png"
 theme.titlebar_close_button_focus               = theme.confdir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_minimize_button_normal           = theme.confdir .. "/icons/titlebar/minimize_normal.png"
@@ -95,6 +112,8 @@ theme.titlebar_maximized_button_normal_inactive = theme.confdir .. "/icons/title
 theme.titlebar_maximized_button_focus_inactive  = theme.confdir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active   = theme.confdir .. "/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = theme.confdir .. "/icons/titlebar/maximized_focus_active.png"
+----------------------------------------------------------------------------------------
+
 
 local markup = lain.util.markup
 
@@ -225,7 +244,12 @@ local netupinfo = lain.widget.net({
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local memory = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, "#e0da37", mem_now.used .. "M "))
+        if mem_now.used > 999 then 
+            mem_now.used = string.format("%.1fG ",mem_now.used/1024)
+        else
+            mem_now.used = mem_now.used .. "M "
+        end
+        widget:set_markup(markup.fontfg(theme.font, "#e0da37", mem_now.used ))
     end
 })
 
@@ -267,9 +291,7 @@ theme.mpd = lain.widget.mpd({
 
 function theme.at_screen_connect(s)
     -- Quake application
-   -- s.quake = lain.util.quake({ app = awful.util.terminal })
-   s.quake = lain.util.quake({ app = "urxvt", height = 0.50, argname = "--name %s" })
-
+    s.quake = lain.util.quake({ app = "alacritty",argname = "--title %s",extra = "--class QuakeDD -o background_opacity=1",  height = 0.2 })
     -- If wallpaper is a function, call it with the screen
     local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
@@ -298,6 +320,9 @@ function theme.at_screen_connect(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(23), bg = theme.bg_normal, fg = theme.fg_normal })
+
+    s.systray = wibox.widget.systray()
+    s.systray.visible = true
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -330,11 +355,11 @@ function theme.at_screen_connect(s)
             --theme.weather.widget,
             --tempicon,
             --temp.widget,
-            --baticon,
-            --bat.widget,
+            baticon,
+            bat.widget,
             clockicon,
             mytextclock,
-            wibox.widget.systray(),
+            s.systray,
             s.mylayoutbox,
         },
         layout = wibox.layout.align.horizontal,
