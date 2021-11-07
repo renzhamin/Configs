@@ -1,0 +1,4 @@
+[submodule "awesome"]
+	path = .config/awesome
+	url = git@github.com:gr523/awesomewm.git
+
