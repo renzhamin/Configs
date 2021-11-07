@@ -59,49 +59,49 @@ keymaps.globalkeys = my_table.join(
 --- Launchers ----
     awful.key( 
         {modkey},"t", function()
-        awful.spawn(terminal) end,
+            awful.spawn(terminal) end,
         {description = "Terminal", group = "Launcher"}
     ),
 
     awful.key( 
         {modkey},"e", function()
-        awful.spawn(filemanager) end,
+            awful.spawn(filemanager) end,
         {description = "File Manager", group = "Launcher"}
     ),
 
     awful.key(
         {modkey,altkey},"b",function()
-        awful.spawn(browser) end,
+            awful.spawn(browser) end,
         {description=browser, group="Launcher"}
     ),
 
     awful.key(
         {modkey},"s",function()
-        awful.spawn("rofi -show drun") end,
+            awful.spawn("rofi -show drun") end,
         {description="rofi", group="Launcher"}
     ),
 
     awful.key(
         {modkey,"Shift"},"s",function()
-        awful.spawn("rofi -show window") end,
+            awful.spawn("rofi -show window") end,
         {description="window switcher", group="Launcher"}
     ),
 
     awful.key(
         {modkey,"Shift"},"k",function()
-        awful.spawn("keepassxc") end,
+            awful.spawn("keepassxc") end,
         {description="KeepassXC", group="Launcher"}
     ),
 
     awful.key(
         {modkey},"Return",function()
-        awful.spawn(string.format("dmenu_run",
+            awful.spawn(string.format("dmenu_run",
         beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))end,
     {description = "show dmenu", group = "Launcher"}),
 
     awful.key(
         {modkey,"Shift"},"Return",function()
-        awful.screen.focused().quake:toggle() end,
+            beautiful.quake:toggle() end,
         {description="Dropdown Terminal", group="Launcher"}
     ),
 
@@ -126,31 +126,32 @@ keymaps.globalkeys = my_table.join(
 
     awful.key(
         {}, "Print", function()
-        awful.spawn(screenshot) end
+        awful.spawn(screenshot) end,
+        {description="Screenshot", group="Launcher" }
     ),
 
 -- Controls --
     awful.key(
         {modkey,modkey1},"equal",function()
         awful.spawn(brightnessUp) end,
-        { description="Brightness Up", group="Control" }
+        {description="Brightness Up", group="Control" }
     ),
     awful.key(
         {modkey,modkey1},"minus",function()
         awful.spawn(brightnessDown) end,
-        { description="Brightness Down", group="Control" }
+        {description="Brightness Down", group="Control" }
     ),
 
     awful.key(
         {modkey,modkey1},"n",function()
         awful.spawn("networkmanager_dmenu") end,
-        { description="Network", group="Prompt Script" }
+        {description="Network", group="Prompt Script" }
     ),
 
     awful.key(
         {modkey,modkey1},"b",function()
         awful.spawn("rofi-bluetooth") end,
-        { description="Bluetooth", group="Prompt Script" }
+        {description="Bluetooth", group="Prompt Script" }
     ),
 
     awful.key(
@@ -401,34 +402,22 @@ keymaps.globalkeys = my_table.join(
 
 
     -- ALSA volume control
-    --awful.key({ modkey1 }, "Up",
-    awful.key({ }, "XF86AudioRaiseVolume",
-        function ()
-            os.execute(string.format("amixer -q set %s 5%%+", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    --awful.key({ modkey1 }, "Down",
-    awful.key({ }, "XF86AudioLowerVolume",
-        function ()
-            os.execute(string.format("amixer -q set %s 5%%-", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    awful.key({ }, "XF86AudioMute",
-        function ()
-            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    awful.key({ modkey1, "Shift" }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    awful.key({ modkey1, "Shift" }, "0",
-        function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
+    awful.key(
+        { }, "XF86AudioRaiseVolume", function()
+            beautiful.volume.change("5%+") end,
+        {description = "Increase Volume", group="Control"}),
 
+    awful.key(
+        { }, "XF86AudioLowerVolume", function()
+            beautiful.volume.change("5%-") end,
+        {description = "Decrease Volume", group="Control"}),
+
+    awful.key(
+        { }, "XF86AudioMute",function()
+            beautiful.volume.change("toggle") end,
+        {description = "Toggle Mute", group="Control"}),
+
+  
     --Media keys supported by vlc, spotify, audacious, xmm2, ...
     --awful.key({}, "XF86AudioPlay", function() awful.util.spawn("playerctl play-pause", false) end),
     --awful.key({}, "XF86AudioNext", function() awful.util.spawn("playerctl next", false) end),

@@ -114,6 +114,8 @@ theme.titlebar_maximized_button_normal_active   = theme.confdir .. "/icons/title
 theme.titlebar_maximized_button_focus_active    = theme.confdir .. "/icons/titlebar/maximized_focus_active.png"
 ----------------------------------------------------------------------------------------
 
+--- Quake Terminal
+theme.quake = lain.util.quake({ app = "alacritty",argname = "--title %s",extra = "--class QuakeDD -o background_opacity=1",  height = 0.2 })
 
 local markup = lain.util.markup
 
@@ -200,13 +202,9 @@ local temp = lain.widget.temp({
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_batt)
 local bat = lain.widget.bat({
+    notify = "off",
     settings = function()
         local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
-
-        if bat_now.ac_status == 1 then
-            perc = perc .. " plug"
-        end
-
         widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, perc .. " "))
     end
 })
@@ -216,27 +214,37 @@ local volicon = wibox.widget.imagebox(theme.widget_vol)
 theme.volume = lain.widget.alsa({
     settings = function()
         if volume_now.status == "off" then
-            volume_now.level = volume_now.level .. "M"
+            volume_now.level = " "
+        else
+            volume_now.level = volume_now.level .. "% "
         end
 
-        widget:set_markup(markup.fontfg(theme.font, "#7493d2", volume_now.level .. "% "))
+        widget:set_markup(markup.fontfg(theme.font, "#7493d2", volume_now.level))
     end
 })
 
+theme.volume.change = function(cmd)
+    os.execute(string.format("amixer -q set %s %s",theme.volume.channel,cmd))
+    theme.volume.update()
+end
+
+theme.volume.widget:buttons(awful.util.table.join(
+    awful.button({}, 2, function() -- middle click
+        theme.volume.change("toggle")
+    end),
+    awful.button({}, 4, function() -- scroll up
+        theme.volume.change("5%+")
+    end),
+    awful.button({}, 5, function() -- scroll down
+        theme.volume.change("5%+")
+    end)
+))
+
 -- Net
 local netdownicon = wibox.widget.imagebox(theme.widget_netdown)
-local netdowninfo = wibox.widget.textbox()
-local netupicon = wibox.widget.imagebox(theme.widget_netup)
-local netupinfo = lain.widget.net({
+local netdowninfo = lain.widget.net({
     settings = function()
-        if iface ~= "network off" and
-           string.match(theme.weather.widget.text, "N/A")
-        then
-            theme.weather.update()
-        end
-
-        widget:set_markup(markup.fontfg(theme.font, "#e54c62", net_now.sent .. " "))
-        netdowninfo:set_markup(markup.fontfg(theme.font, "#87af5f", net_now.received .. " "))
+        widget:set_markup(markup.fontfg(theme.font, "#87af5f", net_now.received .. " "))
     end
 })
 
@@ -290,13 +298,6 @@ theme.mpd = lain.widget.mpd({
 })
 
 function theme.at_screen_connect(s)
-    -- Quake application
-    s.quake = lain.util.quake({ app = "alacritty",argname = "--title %s",extra = "--class QuakeDD -o background_opacity=1",  height = 0.2 })
-    -- If wallpaper is a function, call it with the screen
-    local wallpaper = theme.wallpaper
-    if type(wallpaper) == "function" then
-        wallpaper = wallpaper(s)
-    end
     --gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
@@ -342,9 +343,7 @@ function theme.at_screen_connect(s)
             --mpdicon,
             --theme.mpd.widget,
             netdownicon,
-            netdowninfo,
-            netupicon,
-            netupinfo.widget,
+            netdowninfo.widget,
             volicon,
             theme.volume.widget,
             memicon,
