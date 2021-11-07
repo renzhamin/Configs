@@ -236,7 +236,7 @@ theme.volume.widget:buttons(awful.util.table.join(
         theme.volume.change("5%+")
     end),
     awful.button({}, 5, function() -- scroll down
-        theme.volume.change("5%+")
+        theme.volume.change("5%-")
     end)
 ))
 
@@ -320,13 +320,13 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(23), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.statusbar = awful.wibar({ position = "top", screen = s, height = dpi(23), bg = theme.bg_normal, fg = theme.fg_normal })
 
     s.systray = wibox.widget.systray()
     s.systray.visible = true
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
+    s.statusbar:setup {
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             --s.mylayoutbox,

@@ -319,7 +319,7 @@ keymaps.globalkeys = my_table.join(
     -- Show/Hide Wibox
     awful.key({ modkey, "Shift" }, "b", function ()
             for s in screen do
-                s.mywibox.visible = not s.mywibox.visible
+                s.statusbar.visible = not s.statusbar.visible
             end
         end,
         {description = "toggle wibar", group = "Awesome"}),
