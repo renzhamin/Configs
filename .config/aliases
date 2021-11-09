@@ -45,3 +45,15 @@ alias chsp="curl -s -w 'Testing Website Response Time for :%{url_effective}\n\nL
 
 alias locate="plocate -d ~/.local/share/plocate.db"
 alias updateldb="updatedb -o ~/.local/plocate.db -U ${HOME} -l 0"
+
+bak(){
+    cp ${1} ${1}.bak
+}
+
+rs(){
+    mv ${1} ${1}.bak
+}
+
+rbak(){
+    mv ${1}.bak ${1}
+}

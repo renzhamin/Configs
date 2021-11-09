@@ -5,6 +5,9 @@
 !zoomus.conf
 !.gitignore
 
+!Scripts
+!Scripts/**
+
 !alacritty
 !alacritty/**
 

@@ -1,8 +1,0 @@
-#!/bin/sh
-xdotool search --class keepassxc windowactivate --sync key Control_L+l windowactivate $(xdotool getactivewindow)
-
-# prev=$(xdotool getactivewindow)
-# targ=$(xdotool search --class keepassxc | head -n 1)
-# xdotool search --limit 1 --class keepassxc windowactivate --sync key Control_L+l
-# xdotool key x
-# xdotool windowactivate $prev
