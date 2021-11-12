@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 
 mem() {
   mem=$(free -h| awk '/Mem/ {printf "%s",$3}' | sed 's/i//')
@@ -11,7 +11,7 @@ mem() {
 # }
 
 vol() {
-    vol=$(amixer get Master | sed -n "6 s/.*\([0-9][0-9]%\).*on.*/\1/p")
+    vol=$(amixer get Master | grep "\[on\]" |sed -n "1 s/.*\[\([0-9]\+%\)\].*/\1/p")
     [ -z $vol ] && vol="off"
     echo "+@fn=4;+@fg=5;+@fg=2;+@fn=0; $vol"
 }

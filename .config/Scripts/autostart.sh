@@ -10,5 +10,6 @@ xmodmap -e 'keycode 108=Escape'
 run picom
 run lxpolkit 
 run /usr/lib/geoclue-2.0/demos/agent
-run redshift
+killall redshift
+redshift &
 # brave &

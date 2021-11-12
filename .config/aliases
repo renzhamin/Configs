@@ -47,7 +47,7 @@ alias locate="plocate -d ~/.local/share/plocate.db"
 alias updateldb="updatedb -o ~/.local/plocate.db -U ${HOME} -l 0"
 
 bak(){
-    cp ${1} ${1}.bak
+    cp -r ${1} ${1}.bak
 }
 
 rs(){
