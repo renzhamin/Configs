@@ -15,8 +15,7 @@ echo "127.0.0.1 localhost" > /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 ${host}.localdomain ${host}" >> /etc/hosts
 
-useradd ${username}
-usermod -aG wheel ${username}
+useradd -mG wheel ${username}
 pacman -S --noconfirm --needed xorg-server xorg-xrandr
 echo "xrandr -s 1366x768 >& /dev/null" >> /etc/profile
 pacman -S --noconfirm --needed net-tools sudo grub efibootmgr dhcpcd
