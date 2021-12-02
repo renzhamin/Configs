@@ -148,3 +148,59 @@ map <Leader>j <CMD>HopChar1<CR>
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 let g:user_emmet_leader_key='<A-.>'
+
+" Copy/Paste Output/Input
+fu UpdateInput()
+    exe "silent !xclip -o -sel clip > " . g:codesdir . "/Input.txt"
+endfu
+
+fu CopyOutput()
+    exe "silent !xclip -sel clip " . g:codesdir . "/Output.txt"
+endfu
+
+map<silent><F4> :call UpdateInput() <CR>
+map<silent><F3> :call CopyOutput() <CR>
+
+
+
+" Generic Compilation
+fu! Compile_Generic(...)
+    exe "w"
+    
+    cd `=g:codesdir`
+
+    exe g:compile_cur_file
+    
+    if v:shell_error != 0
+        cd -
+        return
+    endif
+
+
+    if a:0 == 0
+        exe g:run_program . "<Input.txt &> Output.txt"
+    elseif a:1 == 0
+        exe g:run_program . "<Input.txt > Output.txt"
+    elseif a:1 == 1
+        exe g:run_program_in_term
+    elseif a:1 == 2
+        exe g:run_program . "<Input.txt"
+    elseif a:1 == 3
+        exe g:run_program . "<Input.txt >> Output.txt"
+    endif
+    
+    if index( [124,125,137], v:shell_error ) >= 0
+        silent exe "!echo 'TLE' > Output.txt"
+    endif
+    cd -
+endfu
+
+"IO
+imap <F12> <Esc> :call Compile_Generic(0) <CR>
+map <F12> :call Compile_Generic(0) <CR>
+
+"Input Only
+imap<F9> <Esc> :call Compile_Generic(2) <CR>
+map <F9> :call Compile_Generic(2) <CR>
+
+
