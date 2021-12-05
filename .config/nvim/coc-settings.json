@@ -5,6 +5,5 @@
         "snipmate.enable":false
     },
     "clangd.enabled":false,
-    "java.enabled":false,
     "diagnostic.checkCurrentLine": true
 }
