@@ -12,4 +12,4 @@ for i in $(cat ~/.config/zsh/plugins); do
     git clone --depth 1 $i
 done
 
-tar xvf ~/.config/Configs/fonts.lzma -C ~/.local/share
+tar xf ~/.config/Configs/fonts.lzma -C ~/.local/share

@@ -57,3 +57,7 @@ rs(){
 rbak(){
     mv ${1}.bak ${1}
 }
+
+alias update_zsh_plugins="PREV=\$(pwd);for i in \$(cat ~/.config/zsh/plugins | cut -d '/' -f5 | sed 's/.git//g'); do cd ~/.local/share/zsh/plugins/\$i; git pull origin master; done; cd \$PREV"
+
+alias precompile_bits_header="g++ --std=c++20 -x c++-header -fsanitize=undefined /usr/include/c++/11.1.0/x86_64-pc-linux-gnu/bits/stdc++.h"
