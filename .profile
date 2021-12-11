@@ -39,3 +39,9 @@ export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 # fzf
 export FZF_CTRL_T_COMMAND="fd --ignore-file ~/.fdignore -t f -i -LHI $dir 2> /dev/null | sed 's@^\./@@'"
 export FZF_ALT_C_COMMAND="fd --ignore-file ~/.fdignore -i -t d -HLI  2> /dev/null | sed 's@^\./@@'"
+ 
+TOUCHPAD=$(xinput list | grep -i touchpad | sed -n 's:.*id=\([0-9]\+\).*:\1:p')
+
+if [ -n ${TOUCHPAD} ]; then
+    xinput set-prop ${TOUCHPAD} "libinput Tapping Enabled" 1
+fi
